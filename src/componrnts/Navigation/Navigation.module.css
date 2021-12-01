@@ -1,0 +1,12 @@
+.nav {
+  padding: 20px;
+  font-size: 24px;
+}
+
+.navLink:not(:last-child) {
+  margin-right: 20px;
+}
+
+.activeLink {
+  color: blue;
+}
