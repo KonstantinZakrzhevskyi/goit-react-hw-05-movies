@@ -1,12 +1,21 @@
 .nav {
   padding: 20px;
-  font-size: 24px;
+  width: 100vw;
+  background-color: rgb(162, 168, 243);
 }
 
-.navLink:not(:last-child) {
+.navLink {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.navLink,
+.activeLink:not(:last-child) {
   margin-right: 20px;
 }
 
 .activeLink {
+  font-size: 28px;
+  font-weight: 700;
   color: blue;
 }

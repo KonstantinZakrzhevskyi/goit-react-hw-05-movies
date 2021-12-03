@@ -1,35 +1,52 @@
 import { useState, useEffect } from 'react';
 
 import * as fetchAPI from '../../ApiService/ApiService';
-
 import { Status } from '../../utils/status';
+import SearchForm from 'componrnts/SearchForm';
 import Gallery from 'componrnts/Gallery';
 import IdleView from 'componrnts/IdleView';
 import ErrorView from 'componrnts/ErrorView';
 import Loading from 'componrnts/Loader/Loader';
 
-import s from './HomePage.module.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-function HomePage() {
+import s from './MoviesPage.module.css';
+
+function MoviesPage() {
+  const [query, setQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [status, setStatus] = useState(Status.IDLE);
 
   useEffect(() => {
+    if (!query) return;
     setStatus(Status.PENDING);
 
     fetchAPI
-      .fetchTrending()
+      .fetchSearchMovies(query)
       .then(data => {
+        if (data.length === 0) {
+          throw new Error();
+        }
         setMovies(data.results);
         setStatus(Status.RESOLVED);
       })
       .catch(error => {
         setStatus(Status.REJECTED);
       });
-  }, []);
+  }, [query]);
+
+  const onSubmit = query => {
+    setQuery(query);
+  };
 
   if (status === Status.IDLE) {
-    return <IdleView />;
+    return (
+      <>
+        <SearchForm onSubmit={onSubmit} />
+        <IdleView />
+      </>
+    );
   }
 
   if (status === Status.PENDING) {
@@ -38,10 +55,10 @@ function HomePage() {
 
   if (status === Status.RESOLVED) {
     return (
-      <div className={s.homePage}>
-        <h2 className={s.homePageTitle}>Trending today</h2>
-
-        {movies && <Gallery movies={movies} />}
+      <div className={s.moviesPage}>
+        <SearchForm onSubmit={onsubmit} />
+        <Gallery movies={movies} />
+        <ToastContainer autoClose={3000} />
       </div>
     );
   }
@@ -51,4 +68,4 @@ function HomePage() {
   }
 }
 
-export default HomePage;
+export default MoviesPage;

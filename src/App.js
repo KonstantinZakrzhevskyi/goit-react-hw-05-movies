@@ -1,21 +1,40 @@
 import { Route, Routes } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+
 import Navigation from 'componrnts/Navigation';
-import HomePage from 'views/HomePage/HomePage';
-import Movies from 'views/Movies';
+import Loader from 'componrnts/Loader';
+import Container from 'componrnts/Container';
 
 import './App.css';
-import ErrorView from 'views/ErrorView';
+
+const HomePage = lazy(() => import('./views/HomePage/HomePage'));
+
+const MoviesPage = lazy(() => import('./views/MoviesPage/MoviesPage'));
+
+const MovieDetailsPage = lazy(() =>
+  import('./views/MovieDetailsPage/MovieDetailsPage'),
+);
+
+const Cast = lazy(() => import('./componrnts/Cast/Cast'));
+
+const Reviews = lazy(() => import('./componrnts/Reviews/Reviews'));
 
 function App() {
   return (
     <>
       <Navigation />
-
-      <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/movies" element={<Movies />} />
-        <Route element={<ErrorView />} />
-      </Routes>
+      <Container>
+        <Suspense fallback={<Loader />}>
+          <Routes>
+            <Route path="/*" element={<HomePage />} />
+            <Route path="/movies" element={<MoviesPage />} />
+            <Route path="/movies/:movieId" element={<MovieDetailsPage />}>
+              <Route path="cast" element={<Cast />} />
+              <Route path="reviews" element={<Reviews />} />
+            </Route>
+          </Routes>
+        </Suspense>
+      </Container>
     </>
   );
 }
