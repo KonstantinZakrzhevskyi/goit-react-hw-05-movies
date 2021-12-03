@@ -25,7 +25,7 @@ export function fetchMovieDetails(movieId) {
   );
 }
 
-export function fetchMovieCast(movieId) {
+export function fetchMovieCast({ movieId }) {
   return fetchWithErrorHandling(
     `${URL.BASE_URL}movie/${movieId}/credits?api_key=${URL.KEY}&languedge=en-US`,
   );

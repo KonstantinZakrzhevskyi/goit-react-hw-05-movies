@@ -46,7 +46,7 @@ function Reviews() {
       <>
         {reviews && (
           <>
-            <ul className={s.review}>
+            <ul className={s.reviewList}>
               {reviews.map(review => (
                 <li className={s.reviewItem} key={review.id}>
                   <h2 className={s.reviewTitle}>Autor: {review.author}</h2>

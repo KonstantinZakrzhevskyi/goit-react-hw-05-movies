@@ -61,6 +61,7 @@ function MovieDetailsPage() {
             </button>
             <div className={s.movieCard}>
               <img
+                className={s.movieCardImage}
                 src={
                   movie.poster_path
                     ? `${URL.IMAGE}${movie.poster_path}`
@@ -72,8 +73,10 @@ function MovieDetailsPage() {
                 <h2 className={s.movieTitle}>
                   {movie.title || movie.name} ({movie.release_date.slice(0, 4)})
                 </h2>
+                <h3 className={s.movieSubtitle}>Score </h3>
+                <p className={s.movieText}>{movie.vote_average}</p>
                 <h3 className={s.movieSubtitle}>Genres</h3>
-                <ul>
+                <ul className={s.movieList}>
                   {movie.genres.map(({ id, name }) => (
                     <li className={s.movieItem} key={id}>
                       {name}
@@ -87,17 +90,17 @@ function MovieDetailsPage() {
           </>
         )}
         <hr />
-        <h3>Additional information</h3>
-        <div>
+        <div className={s.movieInfo}>
+          <h3 className={s.movieSubtitle}>Additional information</h3>
           <NavLink
             to="cast"
-            className={({ isActive }) => (isActive ? s.ActiveLink : s.link)}
+            className={({ isActive }) => (isActive ? s.activeLink : s.link)}
           >
             Cast
           </NavLink>
           <NavLink
             to="reviews"
-            className={({ isActive }) => (isActive ? s.ActiveLink : s.link)}
+            className={({ isActive }) => (isActive ? s.activeLink : s.link)}
           >
             Reviews
           </NavLink>

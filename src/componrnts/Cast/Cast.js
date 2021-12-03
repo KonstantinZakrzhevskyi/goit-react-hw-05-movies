@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 import * as fetchAPI from '../../ApiService/ApiService';
 import { URL } from '../../ApiService/settingsUrl';
-import defaultAvatar from './defaultAvatar.jpg';
+import defaultAvatar from './defaultAvatar.png';
 
 import { Status } from '../../utils/status';
 import IdleView from 'componrnts/IdleView';
@@ -20,8 +20,8 @@ function Cast() {
   useEffect(() => {
     setStatus(Status.PENDING);
 
-    fetchAPI()
-      .fetchMovieCast(movieId)
+    fetchAPI
+      .fetchMovieCast({ movieId })
       .then(data => {
         setCast(data.cast);
         setStatus(Status.RESOLVED);

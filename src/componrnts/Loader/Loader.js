@@ -6,9 +6,9 @@ const Loading = () => {
     <div className={s.loader}>
       <Loader
         type="Rings"
-        color="#9400d3"
-        height={300}
-        width={300}
+        color="rgba(27, 76, 238, 0.966)"
+        height={400}
+        width={400}
         timeout={3000}
       />
     </div>
