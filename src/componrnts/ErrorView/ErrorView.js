@@ -1,6 +1,3 @@
-import PropTypes from 'prop-types';
-// import s from './ErrorView.module.css';
-
 function ErrorView(message) {
   return (
     <div>
